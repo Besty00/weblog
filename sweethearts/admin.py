@@ -12,7 +12,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ('正文', {'fields': ['text']}),
     ]
 
-    list_display = ('title', 'pubDate')
+    list_display = ('title','abstract','pubDate')
 
 
 admin.sites.site_header = "会 长 大 の 幸 福"

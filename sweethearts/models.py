@@ -4,9 +4,10 @@ from django.db import models
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=50, null=False)
-    text = models.TextField(null=False)
-    pubDate = models.DateField(auto_now=True, null=False)
+    title = models.CharField(max_length=50, null=False, verbose_name=u'标题')
+    text = models.TextField(null=False, verbose_name=u'正文')
+    abstract = models.TextField(null=False, verbose_name=u'摘要', default=text)
+    pubDate = models.DateField(auto_now=True, null=False, verbose_name=u'发布日期')
 
     def __repr__(self):
         return "<Article: %s>" % self.title

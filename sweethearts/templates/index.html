@@ -14,7 +14,7 @@
 <body>
 <header>
 {#  <h1><a href="/">你他妈？</a></h1>#}
-  <p style="font-family: 楷体; font-size: 47px">会 长 大 の 幸 福</p>
+  <p class="title">会 长 大 の 幸 福</p>
 </header>
 <!--nav begin-->
 <div id="nav">
@@ -112,6 +112,12 @@
   </div>
   <!--l_box end -->
   <div class="r_box">
+    <li>
+    {% for art in arts %}
+      <h3><a href="/">{{ art.title }}</a></h3>
+      <p>{{ art.abstract}}</p>
+    {% endfor %}
+    </li>
     <li> <a href="/"><img src="{% static "images/01.jpg" %}"></a>
       <h3><a href="/">你是什么人便会遇上什么人</a></h3>
       <p>有时就为了一句狠话，像心头一口毒钉，永远麻?w着亲密感情交流。恶言，真要慎出，平日多?\心爱语，乃最简易之?咽?。</p>
