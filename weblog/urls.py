@@ -20,4 +20,6 @@ import sweethearts.views as sh_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', sh_views.index),
+    url(r'^article/(\d+)/$', sh_views.article, name='article'),
+    url(r'^guestbook/$', sh_views.guestbook, name='guestbook'),
 ]

@@ -9,10 +9,11 @@ from .models import Article
 class ArticleAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['title']}),
+        ('摘要', {'fields': ['abstract']}),
         ('正文', {'fields': ['text']}),
     ]
 
-    list_display = ('title','abstract','pubDate')
+    list_display = ('title', 'pubDate')
 
 
 admin.sites.site_header = "会 长 大 の 幸 福"

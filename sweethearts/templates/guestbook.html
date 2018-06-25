@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>会长大的幸福</title>
+  <meta name="Keywords" content="会长大的幸福" >
+  <meta name="Description" content="会长大的幸福" >
+  <link href="{% static "css/index.css" %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  <link href="{% static "css/book.css" %}" rel="stylesheet">
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <link href="{% static "css/m.css" %}" rel="stylesheet">
+  <link href="{% static "css/lrtk.css" %}" rel="stylesheet" />
+
+  <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jsjs.js" %}"></script>
+  <script src="{% static "js/footer.js" %}"></script>
+  <!--[if lt IE 9]>
+  <script src="{% static "js/modernizr.js" %}"></script>
+  <![endif]-->
+  <script src="{% static "js/scrollReveal.js" %}"></script>
+{#  <style>#}
+{#    .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}#}
+{#    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;display: inline-block;}#}
+{#    .pagination .disabled{color:#aaa;}#}
+{#  </style>#}
+
+</head>
+<body>
+<div class="blank"></div><div class="blank"></div><div class="blank"></div>
+
+<header>
+  <h1><a href="/">会 长 大 の 幸 福</a></h1>
+  <div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div>
+  <div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div>
+</header>
+<!--nav begin-->
+<div id="nav">
+  <ul>
+    <li><a href="/">首页</a></li>
+    <li><a href="#">关于我</a></li>
+    <li><a href="#">慢生活</a></li>
+    <li><a href="#">相册</a></li>
+    <li><a href="./guestbook">留言板</a></li>
+  </ul>
+</div>
+<!--nav end-->
+<div class="blank"></div>
+<article>
+  <div class="container">
+    <h2 class="ctitle" ><b>留言板</b> <span>你，生命中最重要的过客，因为你未曾为我停留。</span></h2>
+    <div class="gbook">
+      <div class="about">
+        <div id="fountainG">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </div>
+        <div class="about_girl"><span><a href="/"><img src="{% static "images/girl.jpg" %}"></a></span>
+          <p>当您驻足停留过，从此便注定我们的缘分。站在时间的尽头，我们已是朋友。</p>
+        </div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form id="catfishliuyan" action="{% url 'guestbook' %}" method="post">
+{#                <div class="form-group">#}
+{#                  <label>留言标题#}
+{#                  </label>#}
+{#                  <input type="text" class="form-control" name="biaoti" placeholder="留言标题">#}
+{#                </div>#}
+                <div class="form-group">
+                  <label>你想对我说？</label>
+                  <textarea class="form-control" name="neirong" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>怎么称呼？</label>
+                  <input type="text" class="form-control" name="xingming" placeholder="留言人姓名">
+                </div>
+                <p class="text-danger" id="catfishliuyantishi"></p>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" onclick="alert('留言成功！')">提交留言<span class="hidden">&nbsp;<img src="{% static "images/zhixing_bai.gif" %}" width="14" height="14"></span><span class="glyphicon glyphicon-ok hidden"></span></button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+
+{#        <div id="gbooklist">#}
+{#          {volist name="data" id="vo"}#}
+{#          <ul>#}
+{#            <p class="gb_tit"><b>{empty name="$vo.full_name"}何方神圣{else/}{$vo.full_name}{/empty}</b><span>{$vo.createtime}</span></p>#}
+{#            <div class="gb_con">#}
+{#              <p>{$vo.msg}</p>#}
+{#            </div>#}
+{#          </ul>#}
+{#          {/volist}#}
+{#        </div>#}
+{#        <div class="blank"></div>#}
+{#        {$data->render()}#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+</article>
+{#<div id="tbox"> <a id="togbook" href="/e/tool/gbook/?bid=1"></a> <a id="gotop" href="javascript:void(0)"></a> </div>#}
+{#<script>#}
+{#    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){#}
+{#        (function(){#}
+{#            window.scrollReveal = new scrollReveal({reset: true});#}
+{#        })();#}
+{#    };#}
+{#</script>#}
+
+</body>
+</html>

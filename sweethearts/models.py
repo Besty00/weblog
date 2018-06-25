@@ -6,7 +6,7 @@ from django.db import models
 class Article(models.Model):
     title = models.CharField(max_length=50, null=False, verbose_name=u'标题')
     text = models.TextField(null=False, verbose_name=u'正文')
-    abstract = models.TextField(null=False, verbose_name=u'摘要', default=text)
+    abstract = models.TextField(null=False, verbose_name=u'摘要',max_length=40)
     pubDate = models.DateField(auto_now=True, null=False, verbose_name=u'发布日期')
 
     def __repr__(self):
@@ -17,3 +17,8 @@ class Article(models.Model):
 
     class Meta:
         verbose_name_plural = "记 录"
+
+
+class Guestbook(models.Model):
+    msg = models.TextField(null=False)
+
