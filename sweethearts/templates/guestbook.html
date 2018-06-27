@@ -1,4 +1,5 @@
 {% load static %}
+{% load pagetag %}
 <!doctype html>
 <html>
 <head>
@@ -25,7 +26,14 @@
 {#    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;display: inline-block;}#}
 {#    .pagination .disabled{color:#aaa;}#}
 {#  </style>#}
-
+  <script>
+      function guestbook() {
+          var msg = document.getElementById('msg').value
+          if(msg.length !== 0){
+              alert("留言成功！")
+          }
+      }
+  </script>
 </head>
 <body>
 <div class="blank"></div><div class="blank"></div><div class="blank"></div>
@@ -42,7 +50,7 @@
     <li><a href="#">关于我</a></li>
     <li><a href="#">慢生活</a></li>
     <li><a href="#">相册</a></li>
-    <li><a href="./guestbook">留言板</a></li>
+    <li><a href="{% url 'guestbook' %}">留言板</a></li>
   </ul>
 </div>
 <!--nav end-->
@@ -68,23 +76,18 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body">
-              <form id="catfishliuyan" action="{% url 'guestbook' %}" method="post">
-{#                <div class="form-group">#}
-{#                  <label>留言标题#}
-{#                  </label>#}
-{#                  <input type="text" class="form-control" name="biaoti" placeholder="留言标题">#}
-{#                </div>#}
+              <form id="catfishliuyan" action="{% url 'guestbook' %}" method="post">{% csrf_token %}
                 <div class="form-group">
-                  <label>你想对我说？</label>
-                  <textarea class="form-control" name="neirong" rows="3"></textarea>
+                  <label>你想对我说...</label>
+                  <textarea id="msg" class="form-control" name="message" rows="4" required oninvalid="setCustomValidity('还没留言成功哦...')"></textarea>
                 </div>
                 <div class="form-group">
-                  <label>怎么称呼？</label>
-                  <input type="text" class="form-control" name="xingming" placeholder="留言人姓名">
+                  <label>阁下请留名...</label>
+                  <input type="text" class="form-control" name="name" placeholder="留言人姓名">
                 </div>
                 <p class="text-danger" id="catfishliuyantishi"></p>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" onclick="alert('留言成功！')">提交留言<span class="hidden">&nbsp;<img src="{% static "images/zhixing_bai.gif" %}" width="14" height="14"></span><span class="glyphicon glyphicon-ok hidden"></span></button>
+                  <button type="submit" class="btn btn-primary" onclick="guestbook()">提交留言<span class="hidden">&nbsp;<img src="{% static "images/zhixing_bai.gif" %}" width="14" height="14"></span><span class="glyphicon glyphicon-ok hidden"></span></button>
                 </div>
               </form>
             </div>
@@ -93,31 +96,65 @@
         </div>
 
 
-{#        <div id="gbooklist">#}
-{#          {volist name="data" id="vo"}#}
-{#          <ul>#}
-{#            <p class="gb_tit"><b>{empty name="$vo.full_name"}何方神圣{else/}{$vo.full_name}{/empty}</b><span>{$vo.createtime}</span></p>#}
-{#            <div class="gb_con">#}
-{#              <p>{$vo.msg}</p>#}
-{#            </div>#}
-{#          </ul>#}
-{#          {/volist}#}
-{#        </div>#}
-{#        <div class="blank"></div>#}
+    <div id="gbooklist">
+      {% for gb in gbs %}
+      <ul>
+        <p class="gb_tit"><b>{% if gb.name == '' %}何方神圣{% else %}{{ gb.name }}{% endif %}</b><span>{{ gb.gbtime }}</span></p>
+        <div class="gb_con">
+          <p>{{ gb.mssge }}</p>
+        </div>
+      </ul>
+      {% endfor %}
+    </div>
+    <div class="blank"></div>
+
+      {% if pObj.num_pages == 1 %} #如果只有一页，则不显示分页
+      {% else %}
+          <ul class="pagination">
+            {% if contacts.has_previous %}
+            <li>
+                <a href="?page={{ contacts.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for pg in contacts.paginator.page_range %}
+{#                {% if contacts.number == pg %}#}
+{#                    <li class="active"><a href="?page={{ pg }}">{{ pg }}</a> </li>#}
+{#                {% else %}#}
+{#                    <li><a href="?page={{ pg }}">{{ pg }}</a> </li>#}
+{#                {% endif %}#}
+                {% circle_page contacts.number pg %}
+            {% endfor %}
+            {% if contacts.has_next %}
+                <li>
+                    <a href="?page={{ contacts.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+             {% endif %}
+        </ul>
+      {% endif %}
+
+
+
+
 {#        {$data->render()}#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{##}
+
+</div>
+      </div>
+    </div>
+  </div>
+
 </article>
-{#<div id="tbox"> <a id="togbook" href="/e/tool/gbook/?bid=1"></a> <a id="gotop" href="javascript:void(0)"></a> </div>#}
-{#<script>#}
-{#    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){#}
-{#        (function(){#}
-{#            window.scrollReveal = new scrollReveal({reset: true});#}
-{#        })();#}
-{#    };#}
-{#</script>#}
+<div id="tbox"> <a id="togbook" href="/e/tool/gbook/?bid=1"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        (function(){
+            window.scrollReveal = new scrollReveal({reset: true});
+        })();
+    };
+</script>
 
 </body>
 </html>
